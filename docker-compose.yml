@@ -1,0 +1,35 @@
+services:
+  backend:
+    container_name: lesta-backend
+    restart: always
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+      args:
+        FOR_DEVELOPMENT: 'true'
+    command: bash -c "python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ./backend:/app
+    env_file:
+      - .env
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+
+  db:
+    container_name: lesta-db
+    image: postgres
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+    volumes:
+      - psgr-data:/var/lib/postgresql/data
+
+volumes:
+  psgr-data:
+
+networks:
+  default:
+    name: lesta-network

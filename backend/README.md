@@ -11,7 +11,7 @@ The service uses the following technologies:
 
 ## How to run local environment via docker
 ```sh
-$ git clone *github_link*
+$ git clone https://github.com/aeSYNK/lesta-backend.git
 $ cp .env.sample .env
 $ docker-compose -f docker-compose.yml up --build -d
 $ docker-compose logs # For see containers logs.
